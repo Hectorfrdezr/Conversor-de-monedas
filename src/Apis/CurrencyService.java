@@ -1,14 +1,13 @@
-package Api;
-
-import com.google.gson.Gson;
-
+package Apis;
+import Json.ExchangeRateResponse;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Map;
 
-public class SolicitudDeAPi {
+import com.google.gson.Gson;
+
+public class CurrencyService {
 
     public static void convertCurrency(String base, String target, double amount) {
         try {
@@ -36,22 +35,13 @@ public class SolicitudDeAPi {
                 double rate = exchangeRate.conversion_rates.get(target);
                 double convertedAmount = amount * rate;
 
-                System.out.printf("%.2f %s = %.2f %s (Tasa: %.4f)%n", amount, base, convertedAmount, target, rate);
+                System.out.printf("\n%.2f %s = %.2f %s (Tasa: %.4f)%n", amount, base, convertedAmount, target, rate);
             } else {
-                System.out.println("No se pudo obtener la tasa de cambio.");
+                System.out.println("⚠️ No se pudo obtener la tasa de cambio.");
             }
 
         } catch (Exception e) {
-            System.out.println("Error durante la conversión: " + e.getMessage());
+            System.out.println("❌ Error durante la conversión: " + e.getMessage());
         }
     }
-
-    // Clase para mapear la respuesta JSON
-    static class ExchangeRateResponse {
-        String result;
-        String base_code;
-        Map<String, Double> conversion_rates;
-
-    }
 }
-
